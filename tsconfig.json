@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["ESNext", "DOM"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,7 +19,16 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@/css/*": ["./app/styles/*"],
+      "@/layout": ["./app/components/layout"],
+      "@/common": ["./app/components/common"],
+      "@/forms": ["./app/components/forms"],
+      "@/validation": ["./app/schema/validation.tsx"],
+      "@/data": ["./app/schema/data.tsx"],
+      "@/fields": ["./app/schema/fields.tsx"],
+      "@/helpers": ["./app/utils/helper.tsx"],
+      "@/api": ["./app/utils/api.tsx"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

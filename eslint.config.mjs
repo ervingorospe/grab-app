@@ -21,7 +21,7 @@ const eslintConfig = [
     plugins: ["@typescript-eslint", "tailwindcss", "prettier"],
     rules: {
       "prettier/prettier": "error",
-      "tailwindcss/no-custom-classname": "off", // Turn off if using custom Tailwind classes
+      "tailwindcss/no-custom-classname": "off",
       "@typescript-eslint/no-unused-vars": "warn",
       "@typescript-eslint/no-explicit-any": "warn",
       "react/react-in-jsx-scope": "off",

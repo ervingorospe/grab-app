@@ -1,19 +1,41 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server'
+import { jwtVerify, JWTPayload } from 'jose'
 
-export function middleware(req: NextRequest) {
-  const token = req.cookies.get("token")?.value;
+const SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET as string)
 
-  // List of protected routes
-  const protectedRoutes = ["/dashboard", "/profile", "/settings"];
+async function verifyToken(token: string): Promise<JWTPayload | null> {
+  try {
+    const { payload } = await jwtVerify(token, SECRET_KEY)
+    return payload // Valid token
+  } catch (error) {
+    return null // Expired or invalid token
+  }
+}
 
-  // Redirect to /login if trying to access a protected route without a token
-  if (!token && protectedRoutes.some(route => req.nextUrl.pathname.startsWith(route))) {
-    return NextResponse.redirect(new URL("/", req.url));
+export async function middleware(req: NextRequest) {
+  const token = req.cookies.get('token-auth')?.value
+  const protectedRoutes = ['/dashboard', '/profile', '/settings']
+
+  // If user is logged in and tries to access /login or /register, redirect to dashboard
+  if (token && (req.nextUrl.pathname === '/login' || req.nextUrl.pathname === '/register')) {
+    return NextResponse.redirect(new URL('/dashboard', req.url))
   }
 
-  return NextResponse.next();
+  // Check token validity for protected routes
+  if (protectedRoutes.some((route) => req.nextUrl.pathname.startsWith(route))) {
+    const decodedToken = token ? await verifyToken(token) : null
+
+    if (!decodedToken) {
+      console.log('Token expired or missing, redirecting to /login')
+
+      // ⚠️ Important: Use `return new Response()` to avoid "This page isn’t working" error
+      return NextResponse.redirect(new URL('/login', req.url))
+    }
+  }
+
+  return NextResponse.next()
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/profile/:path*", "/settings/:path*"], // Only protect these routes
-};
+  matcher: ['/dashboard/:path*', '/profile/:path*', '/settings/:path*', '/login', '/register']
+}
