@@ -50,4 +50,41 @@ const loginSchema = yup.object().shape({
   password: yup.string().min(6, 'Password is required').required()
 })
 
-export { registrationSchema, loginSchema }
+const profileSchema = yup.object().shape({
+  first_name: yup.string().required('First name is required'),
+  last_name: yup.string().required('Last name is required'),
+  birth_date: yup
+    .string()
+    .required('Birth date is required')
+    .test('is-valid-date', 'Invalid date format (dd-MM-yyyy)', (value) => {
+      if (!value) return false
+      const parsedDate = parse(value, 'dd-MM-yyyy', new Date())
+      return isValid(parsedDate)
+    })
+    .test('is-old-enough', 'You must be at least 10 years old', (value) => {
+      if (!value) return false
+      const parsedDate = parse(value, 'dd-MM-yyyy', new Date())
+      if (!isValid(parsedDate)) return false
+
+      const today = new Date()
+      let age = today.getFullYear() - parsedDate.getFullYear()
+      const m = today.getMonth() - parsedDate.getMonth()
+      if (m < 0 || (m === 0 && today.getDate() < parsedDate.getDate())) {
+        age--
+      }
+      return age >= 10
+    })
+    .transform((value) => {
+      const parsedDate = parse(value, 'dd-MM-yyyy', new Date())
+      return isValid(parsedDate) ? format(parsedDate, 'dd-MM-yyyy') : value
+    }),
+  contact_number: yup
+    .string()
+    .matches(/^\+?[0-9]{10,15}$/, 'Invalid phone number')
+    .test('len', 'Contact number must be more than 10 and less than 14 characters', (value) =>
+      value ? value.length > 10 && value.length < 14 : false
+    )
+    .required('Contact Number is required')
+})
+
+export { registrationSchema, loginSchema, profileSchema }

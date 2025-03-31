@@ -25,4 +25,11 @@ type LoginFormData = {
   password: string
 }
 
-export type { RegistrationFormData, LoginFormData }
+type ProfileFormData = {
+  first_name: string
+  last_name: string
+  birth_date: string
+  contact_number: string
+}
+
+export type { RegistrationFormData, LoginFormData, ProfileFormData }

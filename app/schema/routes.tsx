@@ -5,9 +5,9 @@ const mainMenu = [
     route: '/book'
   },
   {
-    title: 'Profile',
-    icon: 'fa-solid fa-user',
-    route: '/profile'
+    title: 'Settings',
+    icon: 'fas fa-tools',
+    route: '/settings'
   },
   {
     title: 'Address',

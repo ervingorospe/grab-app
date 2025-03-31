@@ -70,4 +70,39 @@ const apiGetUserByEmail = async (endpoint: string, email: string) => {
   }
 }
 
-export { apiAuthPost, apiGetUserByEmail }
+const apiUserPut = async (endpoint: string, body: any) => {
+  try {
+    const token = Cookies.get('token-auth')
+
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token ? `Bearer ${token}` : ''
+      },
+      body: JSON.stringify(body)
+    })
+
+    const data = await response.json()
+
+    if (!response.ok) {
+      throw { status: response.status, message: data.message || 'An error occurred' }
+    }
+
+    return {
+      status: response.status,
+      data
+    }
+  } catch (error) {
+    if (error instanceof TypeError && error.message === 'Failed to fetch') {
+      throw {
+        status: 0,
+        message: 'There was a problem with our connection. Please try again later.'
+      }
+    }
+
+    throw error
+  }
+}
+
+export { apiAuthPost, apiGetUserByEmail, apiUserPut }
