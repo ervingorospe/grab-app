@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './styles/globals.css'
 import './styles/theme.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
 
 export const metadata: Metadata = {
   title: 'Create Next App',

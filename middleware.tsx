@@ -14,7 +14,7 @@ async function verifyToken(token: string): Promise<JWTPayload | null> {
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get('token-auth')?.value
-  const protectedRoutes = ['/dashboard']
+  const protectedRoutes = ['/dashboard', '/profile', '/address', '/history', '/book']
 
   const url = req.nextUrl.clone() // Clone URL to modify it safely
 

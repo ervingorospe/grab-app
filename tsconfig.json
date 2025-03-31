@@ -27,6 +27,7 @@
       "@/validation": ["./app/schema/validation.tsx"],
       "@/data": ["./app/schema/data.tsx"],
       "@/fields": ["./app/schema/fields.tsx"],
+      "@/routes": ["./app/schema/routes.tsx"],
       "@/helpers": ["./app/utils/helper.tsx"],
       "@/api": ["./app/utils/api.tsx"]
     }
