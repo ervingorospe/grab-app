@@ -14,22 +14,26 @@ async function verifyToken(token: string): Promise<JWTPayload | null> {
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get('token-auth')?.value
-  const protectedRoutes = ['/dashboard', '/profile', '/settings']
+  const protectedRoutes = ['/dashboard']
 
-  // If user is logged in and tries to access /login or /register, redirect to dashboard
-  if (token && (req.nextUrl.pathname === '/login' || req.nextUrl.pathname === '/register')) {
-    return NextResponse.redirect(new URL('/dashboard', req.url))
+  const url = req.nextUrl.clone() // Clone URL to modify it safely
+
+  // Redirect logged-in users away from login & register pages
+  if (token && (url.pathname === '/login' || url.pathname === '/register')) {
+    url.pathname = '/dashboard'
+    return NextResponse.redirect(url)
   }
 
-  // Check token validity for protected routes
-  if (protectedRoutes.some((route) => req.nextUrl.pathname.startsWith(route))) {
+  // Verify token for protected routes
+  if (protectedRoutes.some((route) => url.pathname.startsWith(route))) {
     const decodedToken = token ? await verifyToken(token) : null
 
     if (!decodedToken) {
       console.log('Token expired or missing, redirecting to /login')
 
-      // ⚠️ Important: Use `return new Response()` to avoid "This page isn’t working" error
-      return NextResponse.redirect(new URL('/login', req.url))
+      const response = NextResponse.redirect(new URL('/login', req.url))
+      response.cookies.delete('token-auth') // Properly delete expired token
+      return response
     }
   }
 
@@ -37,5 +41,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/profile/:path*', '/settings/:path*', '/login', '/register']
+  matcher: ['/dashboard/:path*', '/login', '/register']
 }
