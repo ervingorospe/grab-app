@@ -1,4 +1,4 @@
-import { Sidebar } from '@/layout'
+import { Sidebar, Navbar } from '@/layout'
 
 export default function DashboardLayout({
   children
@@ -8,7 +8,10 @@ export default function DashboardLayout({
   return (
     <>
       <Sidebar />
-      <div className="bg-blueGray-100 relative md:ml-64">{children}</div>
+      <div className="relative md:ml-64">
+        <Navbar />
+        {children}
+      </div>
     </>
   )
 }

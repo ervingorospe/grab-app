@@ -20,7 +20,7 @@ export default function RegistrationForm() {
 
   const onSubmit = async (data: RegistrationFormData) => {
     try {
-      await apiAuthPost<RegistrationFormData>('/auth/register', data)
+      await apiAuthPost('/auth/register', data)
       router.push('/thank-you?type=registration')
     } catch (error: any) {
       setResponseError(error?.message)
@@ -39,7 +39,10 @@ export default function RegistrationForm() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <div className="grid w-full">
-              <label className="mb-2 block text-xs font-bold uppercase" htmlFor="grid-first-name">
+              <label
+                className="mb-2 block text-xs font-bold text-gray-600 uppercase"
+                htmlFor="grid-first-name"
+              >
                 First Name
               </label>
               <input
@@ -53,7 +56,10 @@ export default function RegistrationForm() {
               )}
             </div>
             <div className="mb-3 w-full">
-              <label className="mb-2 block text-xs font-bold uppercase" htmlFor="grid-last-name">
+              <label
+                className="mb-2 block text-xs font-bold text-gray-600 uppercase"
+                htmlFor="grid-last-name"
+              >
                 Last Name
               </label>
               <input
@@ -69,20 +75,26 @@ export default function RegistrationForm() {
           </div>
 
           <div className="w-full">
-            <label className="mb-2 block text-xs font-bold uppercase" htmlFor="grid-email">
+            <label
+              className="mb-2 block text-xs font-bold text-gray-600 uppercase"
+              htmlFor="grid-email"
+            >
               Email
             </label>
             <input
               {...register('email')}
-              type="email"
+              type="text"
               className="w-full rounded border-0 bg-white px-3 py-3 text-sm shadow transition-all duration-150 ease-linear focus:ring focus:outline-none"
-              placeholder="Email"
+              placeholder="yourname@example.com"
             />
             {errors.email && <p className="mt-2 text-sm text-red-500">{errors.email?.message}</p>}
           </div>
 
           <div className="w-full">
-            <label className="mb-2 block text-xs font-bold uppercase" htmlFor="grid-birth-date">
+            <label
+              className="mb-2 block text-xs font-bold text-gray-600 uppercase"
+              htmlFor="grid-birth-date"
+            >
               Birth Date
             </label>
             <input
@@ -97,7 +109,10 @@ export default function RegistrationForm() {
           </div>
 
           <div className="w-full">
-            <label className="mb-2 block text-xs font-bold uppercase" htmlFor="grid-contact-number">
+            <label
+              className="mb-2 block text-xs font-bold text-gray-600 uppercase"
+              htmlFor="grid-contact-number"
+            >
               Contact Number
             </label>
             <input
@@ -112,7 +127,10 @@ export default function RegistrationForm() {
           </div>
 
           <div className="w-full">
-            <label className="mb-2 block text-xs font-bold uppercase" htmlFor="grid-role">
+            <label
+              className="mb-2 block text-xs font-bold text-gray-600 uppercase"
+              htmlFor="grid-role"
+            >
               Register As
             </label>
             <select
@@ -126,7 +144,10 @@ export default function RegistrationForm() {
           </div>
 
           <div className="w-full">
-            <label className="mb-2 block text-xs font-bold uppercase" htmlFor="grid-password">
+            <label
+              className="mb-2 block text-xs font-bold text-gray-600 uppercase"
+              htmlFor="grid-password"
+            >
               Password
             </label>
             <input
@@ -142,7 +163,7 @@ export default function RegistrationForm() {
 
           <div className="w-full">
             <label
-              className="mb-2 block text-xs font-bold uppercase"
+              className="mb-2 block text-xs font-bold text-gray-600 uppercase"
               htmlFor="grid-confirm-password"
             >
               Confirm Password

@@ -7,11 +7,12 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { loginSchema } from '@/validation'
 import { LoginFormData } from '@/data'
-import { apiAuthPost } from '@/api'
+import { apiAuthPost, apiGetUserByEmail } from '@/api'
 import { AlertError } from '@/common'
-import Cookies from 'js-cookie'
+import { useAuth } from '@/context/AuthContext'
 
 export default function LoginForm() {
+  const { token, login, logout } = useAuth()
   const router = useRouter()
   const [responseError, setResponseError] = useState('')
   const {
@@ -22,12 +23,15 @@ export default function LoginForm() {
 
   const onSubmit = async (data: LoginFormData) => {
     try {
-      const response = await apiAuthPost<LoginFormData>('/auth/login', data)
-      Cookies.set('token-auth', response.data.accessToken, { secure: true })
-      Cookies.set('token-refresh', response.data.refreshToken, { secure: true })
+      const response = await apiAuthPost('/auth/login', data)
+      token(response.data)
+
+      const userDetails = await apiGetUserByEmail('/api/user/info', data.email)
+      login(userDetails.data)
 
       router.push('/dashboard')
     } catch (error: any) {
+      logout()
       setResponseError(error?.message)
     }
   }

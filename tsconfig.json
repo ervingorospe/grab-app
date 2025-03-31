@@ -29,7 +29,9 @@
       "@/fields": ["./app/schema/fields.tsx"],
       "@/routes": ["./app/schema/routes.tsx"],
       "@/helpers": ["./app/utils/helper.tsx"],
-      "@/api": ["./app/utils/api.tsx"]
+      "@/api": ["./app/utils/api.tsx"],
+      "@/context/*": ["./app/context/*"],
+      "@/jwt": ["./app/utils/jwt.tsx"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
