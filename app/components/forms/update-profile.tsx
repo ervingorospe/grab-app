@@ -84,7 +84,6 @@ export default function UpdateProfile() {
                   {...register('first_name')}
                   type="text"
                   className="w-full rounded border-0 bg-white px-3 py-3 text-sm text-gray-600 placeholder-gray-300 shadow transition-all duration-150 ease-linear focus:ring focus:outline-none"
-                  defaultValue={user?.firstName}
                 />
                 {errors.first_name && (
                   <p className="mt-2 text-sm text-red-500">{errors.first_name?.message}</p>
@@ -103,7 +102,6 @@ export default function UpdateProfile() {
                   {...register('last_name')}
                   type="text"
                   className="w-full rounded border-0 bg-white px-3 py-3 text-sm text-gray-600 shadow transition-all duration-150 ease-linear focus:ring focus:outline-none"
-                  defaultValue={user?.lastName}
                 />
                 {errors.last_name && (
                   <p className="mt-2 text-sm text-red-500">{errors.last_name?.message}</p>
@@ -122,7 +120,6 @@ export default function UpdateProfile() {
                   {...register('contact_number')}
                   type="text"
                   className="w-full rounded border-0 bg-white px-3 py-3 text-sm text-gray-600 shadow transition-all duration-150 ease-linear focus:ring focus:outline-none"
-                  defaultValue={user?.contactNumber}
                 />
                 {errors.contact_number && (
                   <p className="mt-2 text-sm text-red-500">{errors.contact_number?.message}</p>
@@ -141,7 +138,6 @@ export default function UpdateProfile() {
                   {...register('birth_date')}
                   type="text"
                   className="w-full rounded border-0 bg-white px-3 py-3 text-sm text-gray-600 shadow transition-all duration-150 ease-linear focus:ring focus:outline-none"
-                  defaultValue={user?.birthDate}
                 />
                 {errors.birth_date && (
                   <p className="mt-2 text-sm text-red-500">{errors.birth_date?.message}</p>

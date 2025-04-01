@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
 import { getEmailFromToken } from '@/jwt'
 import { apiGetUserByEmail } from '@/api'
@@ -34,13 +35,20 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null)
+  const router = useRouter()
 
   // Load user from localStorage when the app starts
   useEffect(() => {
     const fetchUser = async () => {
       const email = await getEmailFromToken()
       const response = await apiGetUserByEmail('/api/user/info', email)
-      setUser(response.data)
+
+      if (!response.data.active) {
+        logout()
+        router.push('/login')
+      } else {
+        setUser(response.data)
+      }
     }
 
     fetchUser()

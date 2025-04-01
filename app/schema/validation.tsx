@@ -87,4 +87,8 @@ const profileSchema = yup.object().shape({
     .required('Contact Number is required')
 })
 
-export { registrationSchema, loginSchema, profileSchema }
+const emailSchema = yup.object().shape({
+  email: yup.string().email('Invalid email').required('Email is required')
+})
+
+export { registrationSchema, loginSchema, profileSchema, emailSchema }

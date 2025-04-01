@@ -32,4 +32,8 @@ type ProfileFormData = {
   contact_number: string
 }
 
-export type { RegistrationFormData, LoginFormData, ProfileFormData }
+type EmailFormData = {
+  email: string
+}
+
+export type { RegistrationFormData, LoginFormData, ProfileFormData, EmailFormData }

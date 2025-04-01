@@ -14,7 +14,7 @@ async function verifyToken(token: string): Promise<JWTPayload | null> {
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get('token-auth')?.value
-  const protectedRoutes = ['/dashboard', '/profile', '/address', '/history', '/book']
+  const protectedRoutes = ['/dashboard', '/profile', '/address', '/history', '/book', '/settings']
 
   const url = req.nextUrl.clone() // Clone URL to modify it safely
 
@@ -41,5 +41,14 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/login', '/register', '/profile', '/address', '/history', '/book']
+  matcher: [
+    '/dashboard/:path*',
+    '/login',
+    '/register',
+    '/profile',
+    '/address',
+    '/history',
+    '/book',
+    '/settings'
+  ]
 }
