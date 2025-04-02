@@ -1,4 +1,4 @@
-import { ProfileForm, EmailForm } from '@/forms'
+import { ProfileForm, EmailForm, PasswordForm } from '@/forms'
 
 export default function Settings() {
   return (
@@ -8,6 +8,7 @@ export default function Settings() {
           <div className="container grid w-full gap-8 px-2 xl:w-8/12">
             <EmailForm />
             <ProfileForm />
+            <PasswordForm />
           </div>
         </div>
       </div>

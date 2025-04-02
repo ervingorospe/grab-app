@@ -91,4 +91,13 @@ const emailSchema = yup.object().shape({
   email: yup.string().email('Invalid email').required('Email is required')
 })
 
-export { registrationSchema, loginSchema, profileSchema, emailSchema }
+const passwordSchema = yup.object().shape({
+  current_password: yup.string().required('Current Password is required'),
+  new_password: yup.string().min(6, 'New Password is required').required(),
+  confirm_password: yup
+    .string()
+    .oneOf([yup.ref('new_password')], 'Passwords must match')
+    .required('Confirm Password is required')
+})
+
+export { registrationSchema, loginSchema, profileSchema, emailSchema, passwordSchema }

@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { ProfileFormData } from '@/data'
 import { apiUserPut } from '@/api'
 import { profileSchema } from '@/validation'
-import { AlertSuccess } from '@/common'
+import { AlertSuccess, AlertError } from '@/common'
 
 export default function UpdateProfile() {
   const { user } = useAuth()
@@ -68,7 +68,16 @@ export default function UpdateProfile() {
         </div>
         <hr className="border-primary-500 mt-6 border-b-1" />
       </div>
-      {!isError && <AlertSuccess message={responseMessage} />}
+      {isError && (
+        <div className="px-6">
+          <AlertError message={responseMessage} />
+        </div>
+      )}
+      {!isError && (
+        <div className="px-6">
+          <AlertSuccess message={responseMessage} />
+        </div>
+      )}
       <div className="flex-auto px-4 py-6 lg:px-10">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-wrap space-y-6">

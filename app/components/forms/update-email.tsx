@@ -68,8 +68,16 @@ export default function UpdateEmail() {
         </div>
         <hr className="border-primary-500 mt-6 border-b-1" />
       </div>
-      {isError && <AlertError message={responseMessage} />}
-      {!isError && <AlertSuccess message={responseMessage} />}
+      {isError && (
+        <div className="px-6">
+          <AlertError message={responseMessage} />
+        </div>
+      )}
+      {!isError && (
+        <div className="px-6">
+          <AlertSuccess message={responseMessage} />
+        </div>
+      )}
       <div className="flex-auto px-4 py-6 lg:px-10">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-wrap space-y-6">

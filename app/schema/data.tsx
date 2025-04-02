@@ -36,4 +36,16 @@ type EmailFormData = {
   email: string
 }
 
-export type { RegistrationFormData, LoginFormData, ProfileFormData, EmailFormData }
+type PasswordFormData = {
+  current_password: string
+  new_password: string
+  confirm_password: string
+}
+
+export type {
+  RegistrationFormData,
+  LoginFormData,
+  ProfileFormData,
+  EmailFormData,
+  PasswordFormData
+}
